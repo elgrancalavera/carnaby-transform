@@ -17,6 +17,10 @@ define(function (require) {
      * rootSel: DataSelector
      * childSels: [DataSelector]
      */
+     // probably something like passing a node as a root
+     // and finding the children based on termination (boundaries/recursive)
+     // selection (children)
+     // and continuation (recursive)
     var Node = function(el, rootSel, childSels) {
         this.rootSel = rootSel
         this.childSels = childSels
