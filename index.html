@@ -11,8 +11,14 @@
     <div class="app" data-app="myapp">
         <div class="component one" data-component="mycomponent">
             <div class="controller" data-controller="mycontroller"></div>
-            <div class="view one" data-view="myviewone"></div>
-            <div class="view two" data-view="myviewtwo"></div>
+            <div class="ignored-element">
+                <div class="view one" data-view="myviewone"></div>
+                <div class="ignored-element">
+                    <div class="ignored-element">
+                        <div class="view two" data-view="myviewtwo"></div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="component two" data-component="mycomponent">
             <div class="controller" data-controller="mycontroller"></div>
@@ -25,7 +31,11 @@
             <div class="view two" data-view="myviewtwo">
                 <div class="controller" data-controller="mycontroller"></div>
                 <div class="view one" data-view="myviewone"></div>
-                <div class="view two" data-view="myviewtwo"></div>
+                <div class="view two" data-view="myviewtwo">
+                    <div class="view three" data-view="myviewthree"></div>
+                    <div class="view four" data-view="myviewfour"></div>
+                    <div class="view five" data-view="myviewfive"></div>
+                </div>
             </div>
         </div>
     </div>
