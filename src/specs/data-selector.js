@@ -35,7 +35,7 @@ define(function (require) {
         })
 
         it('Should reject non-matching elements', function() {
-            expect(fixtures.appSelector.test(fixtures.unknown)).not.to.be.ok()
+            expect(fixtures.appSelector(fixtures.unknown)).not.to.be.ok()
         })
 
         it('Nodes not matching a selector should not have any children', function() {

@@ -79,6 +79,7 @@ module.exports = function(grunt) {
                 files: '<%= files.specs %>',
                 tasks: [
                     'jshint:specs',
+                    'mocha:specs'
                 ]
             },
             src: {
@@ -149,6 +150,7 @@ module.exports = function(grunt) {
         'Runs `grunt` and then watches for changes to run addtional tasks.',
         [
             'jshint',
+            'connect',
             'watch',
         ]
     )

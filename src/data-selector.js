@@ -12,45 +12,46 @@ define(function (require) {
     //
     //----------------------------------
 
-    function selectorName(value) {
+    function selectorValue(value) {
         return _.isString(value) ? '="' + value + '"' : ''
     }
 
-    function selector(dataSelector, value) {
-        return '[data-' + dataSelector.name + selectorName(value) + ']'
+    function selector(name, value) {
+        return '[data-' + name + selectorValue(value) + ']'
     }
 
     //----------------------------------
     //
-    // DataSelector
+    // dataSelector
     //
     //----------------------------------
 
-    var DataSelector = function(name) {
-        this.name = name
-    }
+    return function(name) {
 
-    _.extend(DataSelector.prototype, {
-        name: function(el) {
-            return $(this.validate(el)).attr(this.name)
-        },
-        test: function(el) {
-            return $(el).is(this.selector())
-        },
-        selector: function(value) {
-            return selector(this, value)
-        },
-        children: function(el) {
-            // should this throw?
-            return this.test(el) ? $(el).children().toArray() : []
-        },
-        validate: function(el) {
-            if (!this.test(el)) {
-                throw new Error('Invalid element for selector `' + this.selector() + '`')
+        var sel = function(el) {
+            return $(el).is(selector(name))
+        }
+
+        sel.validate = function(el) {
+            if(!sel(el)) {
+                throw new Error('Invalid element for selector `' + selector(name) + '`')
             }
             return el
         }
-    })
 
-    return DataSelector
+        sel.selector = function(value) {
+            return selector(name, value)
+        }
+
+        sel.children = function(el) {
+            // should this throw?
+            return sel(el) ? $(el).children().toArray() : []
+        }
+
+        sel.value = function(el) {
+            return $(sel.validate(el)).attr(name)
+        }
+
+        return sel
+    }
 });

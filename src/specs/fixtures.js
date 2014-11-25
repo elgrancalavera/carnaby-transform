@@ -1,6 +1,6 @@
 define(function (require) {
     'use strict';
-    var DataSelector = require('data-selector')
+    var dataSelector = require('data-selector')
     return {
 
         //----------------------------------
@@ -9,10 +9,10 @@ define(function (require) {
         //
         //----------------------------------
 
-        appSelector: new DataSelector('app'),
-        componentSelector: new DataSelector('component'),
-        controllerSelector: new DataSelector('controller'),
-        viewSelector: new DataSelector('view'),
+        appSelector: dataSelector('app'),
+        componentSelector: dataSelector('component'),
+        controllerSelector: dataSelector('controller'),
+        viewSelector: dataSelector('view'),
 
         //----------------------------------
         //
