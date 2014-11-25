@@ -11,23 +11,28 @@
     <div class="app" data-app="myapp">
         <div class="component one" data-component="mycomponent">
             <div class="controller" data-controller="mycontroller"></div>
-            <div class="view one" data-view="myview"></div>
-            <div class="view two" data-view="myview"></div>
+            <div class="view one" data-view="myviewone"></div>
+            <div class="view two" data-view="myviewtwo"></div>
         </div>
         <div class="component two" data-component="mycomponent">
             <div class="controller" data-controller="mycontroller"></div>
-            <div class="view one" data-view="myview"></div>
-            <div class="view two" data-view="myview"></div>
+            <div class="view one" data-view="myviewone"></div>
+            <div class="view two" data-view="myviewtwo"></div>
         </div>
         <div class="component three" data-component="mycomponent">
             <div class="controller" data-controller="mycontroller"></div>
-            <div class="view one" data-view="myview"></div>
-            <div class="view two" data-view="myview">
+            <div class="view one" data-view="myviewone"></div>
+            <div class="view two" data-view="myviewtwo">
                 <div class="controller" data-controller="mycontroller"></div>
-                <div class="view one" data-view="myview"></div>
-                <div class="view two" data-view="myview"></div>
+                <div class="view one" data-view="myviewone"></div>
+                <div class="view two" data-view="myviewtwo"></div>
             </div>
         </div>
+    </div>
+    <div class="unknown">
+        <div class="unknown-child"></div>
+        <div class="unknown-child"></div>
+        <div class="unknown-child"></div>
     </div>
 </div>
 
@@ -37,17 +42,25 @@
 require.config({
     baseUrl: '/src',
     paths: {
+        underscore: '../bower_components/underscore/underscore',
         jquery: '../bower_components/jquery/dist/jquery',
         chai: '../bower_components/chai/chai',
     }
 })
-require(['jquery', 'chai'], function ($, chai) {
+require([
+    'jquery',
+    'chai',
+    'underscore',
+    ],
+    function ($, chai, _) {
+
     mocha.setup('bdd')
     require([
-        'specs/setup'
+        'specs/data-selector'
     ], function() {
         mocha.run()
     })
+
 })
 </script>
 </body>
