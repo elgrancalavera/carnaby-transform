@@ -35,15 +35,15 @@ define(function (require) {
         })
 
         it('Should reject non-matching elements', function() {
-            expect(f.appSelector(f.unknown)).not.to.be.ok()
+            expect(f.appSelector(f.unknown).isValid()).not.to.be.ok()
         })
 
         it('Nodes not matching a selector should not have any children', function() {
-            expect(f.appSelector.children(f.unknown).length).to.equal(0)
+            expect(f.appSelector(f.unknown).children().length).to.equal(0)
         })
 
         it('Nodes matching a selector may have children', function() {
-            expect(f.appSelector.children(f.app).length).to.equal(3)
+            expect(f.appSelector(f.app).children().length).to.equal(3)
         })
     })
 });

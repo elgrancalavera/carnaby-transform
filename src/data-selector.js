@@ -27,31 +27,24 @@ define(function (require) {
     //----------------------------------
 
     return function(name) {
-
         var sel = function(el) {
-            return $(el).is(selector(name))
-        }
-
-        sel.validate = function(el) {
-            if(!sel(el)) {
-                throw new Error('Invalid element for selector `' + selector(name) + '`')
+            var $el = $(el)
+            var valid = $el.is(selector(name))
+            return {
+                children: function() {
+                    return valid ? $el.children().toArray() : []
+                },
+                value: function() {
+                    return valid ? $el.attr(name) : undefined
+                },
+                isValid: function() {
+                    return valid
+                }
             }
-            return el
         }
-
         sel.selector = function(value) {
             return selector(name, value)
         }
-
-        sel.children = function(el) {
-            // should this throw?
-            return sel(el) ? $(el).children().toArray() : []
-        }
-
-        sel.value = function(el) {
-            return $(sel.validate(el)).attr(name)
-        }
-
         return sel
     }
 });
