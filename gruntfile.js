@@ -23,6 +23,9 @@ module.exports = function(grunt) {
             specs: [
                 'src/specs/**/*.js'
             ],
+            specsrunner: [
+                'index.html'
+            ],
             src: [
                 'src/**/*.js',
                 '!<%= files.specs %>'
@@ -82,6 +85,12 @@ module.exports = function(grunt) {
                     'mocha:specs'
                 ]
             },
+            specsrunner: {
+                files: '<%= files.specsrunner %>',
+                tasks: [
+                    'mocha:specs'
+                ]
+            },
             src: {
                 files: '<%= files.src %>',
                 tasks: [
@@ -121,7 +130,8 @@ module.exports = function(grunt) {
                 options: {
                     urls: [
                         'http://<%= connect.specs.options.hostname %>:<%= connect.specs.options.port %>/'
-                    ]
+                    ],
+                    reporter: 'Spec'
                 }
             }
         }

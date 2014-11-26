@@ -6,7 +6,7 @@ define(function (require) {
     var expect  = require('chai').expect
     ,   f       = require('./fixtures')
 
-    describe('DataSelector', function () {
+    describe('data-selector', function () {
 
         it('Should match selector names', function() {
             expect(f.appSelector.selector()).to.equal('[data-app]')
@@ -43,7 +43,7 @@ define(function (require) {
         })
 
         it('Nodes matching a selector may have children', function() {
-            expect(f.appSelector(f.app).children().length).to.equal(3)
+            expect(f.appSelector(f.singleApp).children().length).to.equal(3)
         })
     })
 });
