@@ -13,6 +13,7 @@
     "asi": true,
     "browser": true,
     "devel": true,
+    "laxcomma": true,
     "globals": {
         "define": false,
         "require": false,

@@ -4,42 +4,47 @@ define(function (require) {
     'use strict';
 
     var _ = require('underscore')
-    var $ = require('jquery')
 
-    //----------------------------------
-    //
-    // Node
-    //
-    //----------------------------------
+    // probably something like passing a node as a root
+    // and finding the children based on termination (boundaries/recursive)
+    // selection (children)
+    // and continuation (recursive)
+    return function(rootSel) {
 
-    /*
-     * el:Element
-     * rootSel: DataSelector
-     * childSels: [DataSelector]
-     */
-     // probably something like passing a node as a root
-     // and finding the children based on termination (boundaries/recursive)
-     // selection (children)
-     // and continuation (recursive)
-    var Node = function(el, rootSel, childSels) {
-        this.rootSel = rootSel
-        this.childSels = childSels
-        this.el = this.rootSel.validate(el)
-        this.$el = $(this.el)
-    }
+        var allowedChildren = []
 
-    _.extend(Node.prototype, {
-        name: function() {
-            return this.rootSel.name(this.el)
-        },
-        /*
-         * recursive:Boolan
-         * boundaries:[DataSelector]
-         */
-        children: function(/*recursive, boundaries*/) {
-            return []
+        function childNode(/*el*/) {
+            return false
         }
-    })
 
-    return Node
+        function children(el) {
+            return _.reduce(rootSel.children(el), function(_children, el) {
+                // find matching node factory for el
+                var child = childNode(el)
+                if (!!child) {
+                    _children.push(node.tree(el))
+                }
+                return _children
+            }, [])
+        }
+
+        var node = function(el) {
+            return rootSel(el)
+        }
+
+        node.tree = function(el) {
+            return {
+                el: rootSel.validate(el),
+                selector: rootSel,
+                children: children(el)
+            }
+        }
+
+        node.allowChild = function (childNode) {
+            allowedChildren = _.uniq(allowedChildren.concat(childNode))
+            return node
+        }
+
+        return node
+    }
 });
