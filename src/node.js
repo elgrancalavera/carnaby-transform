@@ -10,13 +10,35 @@ define(function (require) {
     // selection (children)
     // and continuation (recursive)
 
+    /*
 
-    // maybe we need to pass the tree description, like
-    // tree = {}
-    // tree[appSelector.selector()]         = [componentSelector, controllerSelector]
-    // tree[componentSelector.selector()]   = [componentSelector, controllerSelector, viewSelector]
-    // tree[controllerSelector.selector()]  = []
-    // tree[viewSelector.selector()]        = [viewSelector]
+    maybe we need to pass the tree description, like
+
+    appDescriptor = nodeDescriptor(
+        appSelector,selector(),
+        componentSelector,
+        controllerSelector)
+
+    componentDescriptor = nodeDescriptor(
+        componentSelector.selector(),
+        componentSelector,
+        controllerSelector,
+        viewSelector)
+
+    controllerDescriptor = nodeDescriptor(
+        controllerSelector.selector())
+
+    viewDescriptor = nodeDescriptor(
+        viewSelector.selector(),
+        viewSelector)
+
+    t = tree(
+        appDescriptor,
+        componentDescriptor,
+        controllerDescriptor,
+        viewDescriptor)
+
+    */
 
     return function(rootSel) {
 
