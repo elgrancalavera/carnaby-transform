@@ -14,30 +14,29 @@ define(function (require) {
 
     maybe we need to pass the tree description, like
 
-    appDescriptor = nodeDescriptor(
-        appSelector,selector(),
+    appDescriptor = nodeDescriptor(appSelector, [
         componentSelector,
-        controllerSelector)
+        controllerSelector
+    ])
 
-    componentDescriptor = nodeDescriptor(
-        componentSelector.selector(),
+    componentDescriptor = nodeDescriptor(componentSelector, [
         componentSelector,
         controllerSelector,
-        viewSelector)
+        viewSelector
+    ])
 
-    controllerDescriptor = nodeDescriptor(
-        controllerSelector.selector())
+    controllerDescriptor = nodeDescriptor(controllerSelector, [
+    ])
 
-    viewDescriptor = nodeDescriptor(
-        viewSelector.selector(),
-        viewSelector)
+    viewDescriptor = nodeDescriptor(viewSelector, [
+        viewSelector
+    ])
 
     t = tree(
         appDescriptor,
         componentDescriptor,
         controllerDescriptor,
         viewDescriptor)
-
     */
 
     return function(rootSel) {
