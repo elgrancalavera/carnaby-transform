@@ -9,6 +9,15 @@ define(function (require) {
     // and finding the children based on termination (boundaries/recursive)
     // selection (children)
     // and continuation (recursive)
+
+
+    // maybe we need to pass the tree description, like
+    // tree = {}
+    // tree[appSelector.selector()]         = [componentSelector, controllerSelector]
+    // tree[componentSelector.selector()]   = [componentSelector, controllerSelector, viewSelector]
+    // tree[controllerSelector.selector()]  = []
+    // tree[viewSelector.selector()]        = [viewSelector]
+
     return function(rootSel) {
 
         var allowedChildren = []
