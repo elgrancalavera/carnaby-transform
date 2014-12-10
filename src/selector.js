@@ -1,16 +1,10 @@
-// Selects elements based on data-* attributes.
+// Selects elements and its children
 // leon.coto@mcsaatchi.com
 define(function (require) {
     'use strict';
 
     var _ = require('underscore')
     ,   $ = require('jquery')
-
-    //----------------------------------
-    //
-    // selectors
-    //
-    //----------------------------------
 
     function selectorValue(value) {
         return _.isString(value) ? '="' + value + '"' : ''
@@ -19,12 +13,6 @@ define(function (require) {
     function selector(name, value) {
         return '[data-' + name + selectorValue(value) + ']'
     }
-
-    //----------------------------------
-    //
-    // dataSelector
-    //
-    //----------------------------------
 
     return function(name) {
         var sel = function(el) {

@@ -79,15 +79,15 @@ module.exports = function(grunt) {
                 ]
             },
             specs: {
-                files: '<%= files.specs %>',
+                options: {
+                    livereload: true
+                },
+                files: [
+                    '<%= files.specs %>',
+                    '<%= files.specsrunner %>',
+                ],
                 tasks: [
                     'jshint:specs',
-                    'mocha:specs'
-                ]
-            },
-            specsrunner: {
-                files: '<%= files.specsrunner %>',
-                tasks: [
                     'mocha:specs'
                 ]
             },
@@ -124,7 +124,8 @@ module.exports = function(grunt) {
         mocha: {
             options: {
                 // requirejs will call `mocha.run()`
-                run: false
+                run: false,
+                timeout: grunt.option('timeout') || 5000
             },
             specs: {
                 options: {

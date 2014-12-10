@@ -71,13 +71,15 @@ require([
 
     mocha.setup('bdd')
     require([
-        'specs/data-selector',
-        'specs/node-descriptor',
+        'specs/selector',
+        'specs/rule',
+        'specs/transform',
     ], function() {
         mocha.run()
     })
 
 })
 </script>
+<script src="//localhost:35729/livereload.js"></script>
 </body>
 </html>

@@ -1,50 +1,67 @@
+// specs/fixtures
+// leon.coto@mcsaatchi.com
+
 define(function (require) {
     'use strict';
 
-    var dataSelector    = require('data-selector')
-    ,   nodeDescriptor  = require('node-descriptor')
-    ,   _               = require('underscore')
-    ,   qs              = _.bind(document.querySelector, document)
-    ,   qsa             = _.bind(document.querySelectorAll, document)
-    ,   f               = {}
+    var rule        = require('rule')
+    ,   selector    = require('selector')
+    ,   transform   = require('transform')
+    ,   _           = require('underscore')
+    ,   qs          = _.bind(document.querySelector, document)
+    ,   qsa         = _.bind(document.querySelectorAll, document)
+    ,   f           = {}
 
     //----------------------------------
     //
-    // Selectors
+    // selector
     //
     //----------------------------------
 
-    f.appSelector           = dataSelector('app')
-    f.componentSelector     = dataSelector('component')
-    f.controllerSelector    = dataSelector('controller')
-    f.viewSelector          = dataSelector('view')
+    f.appSelector           = selector('app')
+    f.componentSelector     = selector('component')
+    f.controllerSelector    = selector('controller')
+    f.viewSelector          = selector('view')
 
     //----------------------------------
     //
-    // Node descriptors
+    // rule
     //
     //----------------------------------
 
-    f.appDescriptor = nodeDescriptor(f.appSelector, [
+    f.appRule = rule(f.appSelector, [
         f.componentSelector,
         f.controllerSelector
     ])
 
-    f.componentDescriptor = nodeDescriptor(f.componentSelector, [
+    f.componentRule = rule(f.componentSelector, [
         f.componentSelector,
         f.controllerSelector,
         f.viewSelector
     ])
 
-    f.controllerDescriptor = nodeDescriptor(f.controllerSelector)
+    f.controllerRule = rule(f.controllerSelector)
 
-    f.viewDescriptor  = nodeDescriptor(f.viewSelector, [
+    f.viewRule  = rule(f.viewSelector, [
         f.viewSelector
     ])
 
     //----------------------------------
     //
-    // Selections
+    // transform
+    //
+    //----------------------------------
+
+    f.appTransform = transform([
+        f.appRule,
+        f.componentRule,
+        f.controllerRule,
+        f.viewRule
+    ])
+
+    //----------------------------------
+    //
+    // DOM selections
     //
     //----------------------------------
 

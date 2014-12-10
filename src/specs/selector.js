@@ -1,4 +1,4 @@
-// Selections
+// specs/selector
 // leon.coto@mcsaatchi.com
 define(function (require) {
     'use strict';
@@ -6,7 +6,7 @@ define(function (require) {
     var expect  = require('chai').expect
     ,   f       = require('./fixtures')
 
-    describe('data-selector', function () {
+    describe('selector', function() {
 
         it('Should match selector names', function() {
             expect(f.appSelector.selector()).to.equal('[data-app]')
