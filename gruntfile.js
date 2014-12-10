@@ -88,13 +88,17 @@ module.exports = function(grunt) {
                 ],
                 tasks: [
                     'jshint:specs',
-                    'mocha:specs'
+                    'mocha:specs',
                 ]
             },
             src: {
+                options: {
+                    livereload: true
+                },
                 files: '<%= files.src %>',
                 tasks: [
                     'jshint:src',
+                    'mocha:specs',
                 ]
             }
         },

@@ -25,8 +25,8 @@ define(function (require) {
         it('Should select elements correctly', function() {
             expect(document.querySelectorAll(f.appSelector.selector()).length).to.equal(1)
             expect(document.querySelectorAll(f.componentSelector.selector()).length).to.equal(3)
-            expect(document.querySelectorAll(f.controllerSelector.selector()).length).to.equal(4)
-            expect(document.querySelectorAll(f.viewSelector.selector()).length).to.equal(11)
+            expect(document.querySelectorAll(f.controllerSelector.selector()).length).to.equal(5)
+            expect(document.querySelectorAll(f.viewSelector.selector()).length).to.equal(12)
         })
 
         it('Should select elements with value correctly', function() {
@@ -43,7 +43,7 @@ define(function (require) {
         })
 
         it('Nodes matching a selector may have children', function() {
-            expect(f.appSelector(f.singleApp).children().length).to.equal(3)
+            expect(f.appSelector(f.singleApp).children().length).to.equal(5)
         })
     })
 });

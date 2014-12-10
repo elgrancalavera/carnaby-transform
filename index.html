@@ -8,7 +8,10 @@
 <div id="mocha"></div>
 
 <div id="fixtures">
+
     <div class="app" data-app="myapp">
+        <div class="controller" data-controller="my-controller"></div>
+        <div class="view invalid" data-view="my-view"></div>
         <div class="component one" data-component="mycomponent">
             <div class="controller" data-controller="mycontroller"></div>
             <div class="ignored-element">
@@ -44,11 +47,13 @@
             </div>
         </div>
     </div>
+
     <div class="unknown">
         <div class="unknown-child"></div>
         <div class="unknown-child"></div>
         <div class="unknown-child"></div>
     </div>
+
 </div>
 
 <script src="/bower_components/mocha/mocha.js"></script>

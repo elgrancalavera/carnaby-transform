@@ -67,6 +67,7 @@ define(function (require) {
 
     f.singleApp         = qs('.app')
     f.singleComponent   = qs('.component')
+    f.componentOne      = qs('.component.one')
     f.singleController  = qs('.controller')
     f.singleView        = qs('.view')
 
