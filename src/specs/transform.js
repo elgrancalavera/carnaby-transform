@@ -1,10 +1,21 @@
 // specs/transform
 // leon.coto@mcsaatchi.com
 define(function (require) {
+
     'use strict';
+
     var f           = require('./fixtures')
     ,   _           = require('underscore')
     ,   expect      = require('chai').expect
+
+    function findChild(parent, by) {
+        by = by || function() { return false }
+        return _.find(parent.children, by)
+    }
+
+    function byClassName(className, child) {
+        return child.el.className === className
+    }
 
     describe('transform', function() {
 
@@ -34,16 +45,18 @@ define(function (require) {
                 var tree = f.appTransform(f.singleApp).tree()
                 expect(tree.children.length).to.equal(4)
             })
+
             it('All children should be found recursively.', function() {
-                var tree = f.appTransform(f.singleApp).tree()
 
-                // sanity check
-                expect(_.pluck(tree.children, 'el')).to.contain(f.componentOne)
+                var root = f.appTransform(f.singleApp).tree()
 
-                var componentOne = _.find(tree.children, function(node) {
-                    return node.el.className === 'component one'
-                })
+                var componentOne = findChild(root, _.partial(byClassName, 'component one'))
+                expect(componentOne).to.be.ok()
                 expect(componentOne.children.length).to.equal(2)
+
+                var viewOne = findChild(componentOne, _.partial(byClassName, 'view one'))
+                expect(viewOne).to.be.ok()
+                expect(viewOne.children.length).to.equal(1)
             })
         })
     })

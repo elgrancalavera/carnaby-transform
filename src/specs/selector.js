@@ -37,13 +37,5 @@ define(function (require) {
         it('Should reject non-matching elements', function() {
             expect(f.appSelector(f.unknown).isValid()).not.to.be.ok()
         })
-
-        it('Nodes not matching a selector should not have any children', function() {
-            expect(f.appSelector(f.unknown).children().length).to.equal(0)
-        })
-
-        it('Nodes matching a selector may have children', function() {
-            expect(f.appSelector(f.singleApp).children().length).to.equal(5)
-        })
     })
 });

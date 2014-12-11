@@ -2,21 +2,25 @@
 // leon.coto@mcsaatchi.com
 define(function (require) {
 
-
     'use strict';
-    var $ = require('jquery')
-    ,   _ = require('underscore')
 
-    function makeRuleFinder(rules) {
-        return function (el) {
-            return _.find(rules, function(rule) {
-                return rule.isValidRoot(el)
-            })
-        }
+    var $ = require('jquery')
+    ,   _   = require('underscore')
+
+    //--------------------------------------------------------------------------
+    //
+    // Util
+    //
+    //--------------------------------------------------------------------------
+
+    function children(el) {
+        return $(el).children()
     }
 
-    function childElements(el) {
-        return $(el).children()
+    function ruleFinder(rules, el) {
+        return _.find(rules, function(rule) {
+            return rule.isValidRoot(el)
+        })
     }
 
     function node(el, rule) {
@@ -24,35 +28,42 @@ define(function (require) {
         return { el: el, rule: rule }
     }
 
-    function childIterator(parentRule, findRule) {
-        return function (children, candidate) {
-            var childNode = node(candidate, findRule(candidate))
-            if (parentRule.isValidChild(candidate) && !!childNode) {
-                children.push(nodeIterator(childNode, findRule))
-            } else {
-                children = children.concat(childReducer(candidate, parentRule, findRule))
-            }
-            return children
-        }
+    function validChild(node, parentRule) {
+        return !!node && parentRule.isValidChild(node.el)
     }
 
-    function childReducer(el, parentRule, findRule) {
-        return _.reduce(childElements(el), childIterator(parentRule, findRule), [])
-    }
-
-    function nodeIterator(currentNode, findRule) {
-        if (!currentNode) { return }
-        currentNode.children = childReducer(currentNode.el, currentNode.rule, findRule)
-        return currentNode
-    }
+    //--------------------------------------------------------------------------
+    //
+    // Transform
+    //
+    //--------------------------------------------------------------------------
 
     return function(rules) {
-        var findRule = makeRuleFinder(rules || [])
+
+        var findRule = _.partial(ruleFinder, rules || [])
+
+        function childIterator(parentRule, children, candidate) {
+            var child = node(candidate, findRule(candidate))
+            if (validChild(child, parentRule)) {
+                return children.concat(nodeIterator(child))
+            }
+            return children.concat(childReducer(candidate, parentRule))
+        }
+
+        function childReducer(el, parentRule) {
+            return _.reduce(children(el), _.partial(childIterator, parentRule), [])
+        }
+
+        function nodeIterator(currentNode) {
+            if (!currentNode) { return }
+            currentNode.children = childReducer(currentNode.el, currentNode.rule)
+            return currentNode
+        }
+
         return function(root) {
-            root = node(root, findRule(root))
             return {
                 tree: function() {
-                    return nodeIterator(root, findRule)
+                    return nodeIterator(node(root, findRule(root)))
                 }
             }
         }
@@ -130,12 +141,12 @@ define(function (require) {
 //----------------------------------
 
 [
-    { el: el, rule: rule, children: [ ... ] },
-    { el: el, rule: rule, children: [ ... ] },
-    { el: el, rule: rule, children: [ ... ] },
-    { el: el, rule: rule, children: [ ... ] },
-    { el: el, rule: rule, children: [ ... ] },
-    { el: el, rule: rule, children: [ ... ] },
-    { el: el, rule: rule, children: [ ... ] },
+    { el: el, rule: rule },
+    { el: el, rule: rule },
+    { el: el, rule: rule },
+    { el: el, rule: rule },
+    { el: el, rule: rule },
+    { el: el, rule: rule },
+    { el: el, rule: rule },
 ]
 */

@@ -19,9 +19,6 @@ define(function (require) {
             var $el = $(el)
             var valid = $el.is(selector(name))
             return {
-                children: function() {
-                    return valid ? $el.children().toArray() : []
-                },
                 value: function() {
                     return valid ? $el.attr(name) : undefined
                 },
