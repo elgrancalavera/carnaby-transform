@@ -204,12 +204,6 @@ module.exports = function(grunt) {
         ]
     })
 
-    //--------------------------------------------------------------------------
-    //
-    // task aliases
-    //
-    //--------------------------------------------------------------------------
-
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
 
     grunt.registerTask(
