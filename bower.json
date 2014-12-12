@@ -1,0 +1,28 @@
+{
+  "name": "carnaby-dom",
+  "version": "0.0.0",
+  "authors": [
+    "Leon Coto <leon.coto@mcsaatchi.com>"
+  ],
+  "main": "./dist/transform.js",
+  "description": "JavaScript DOM parsing",
+  "license": "MIT",
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "specs",
+    "build",
+    "wrap",
+    "src",
+    "*.sublime-*",
+  ],
+  "dependencies": {
+    "jquery": "^1.8.0 || ^2.0.0",
+    "underscore": "1.4.4 - 1.6.0",
+  },
+  "devDependencies": {
+    "mocha": "~2.0.1",
+    "chai": "~1.10.0",
+    "requirejs": "~2.1.15"
+  }
+}
