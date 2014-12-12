@@ -213,13 +213,21 @@ module.exports = function(grunt) {
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
 
     grunt.registerTask(
-        'default',
-        'Runs all tests and builds the project.',
+        'test',
+        'Lints and runs all specs.',
         [
-            'clean',
             'jshint',
             'connect:specs',
             'mocha:specs',
+        ]
+    )
+
+    grunt.registerTask(
+        'default',
+        'Tests snd builds.',
+        [
+            'test',
+            'clean',
             'requirejs:dist',
             'uglify:dist',
         ]
@@ -227,10 +235,10 @@ module.exports = function(grunt) {
 
     grunt.registerTask(
         'dev',
-        'Runs `grunt` and then watches for changes to run addtional tasks.',
+        'Lints, starts connect and watches for changes.',
         [
             'jshint',
-            'connect',
+            'connect:specs',
             'watch',
         ]
     )

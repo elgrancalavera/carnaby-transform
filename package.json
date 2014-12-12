@@ -4,11 +4,12 @@
   "description": "DOM trees transformations",
   "main": "gruntfile.js",
   "scripts": {
-    "test": "grunt test"
+    "bower": "bower install",
+    "test": "grunt"
   },
   "repository": {
     "type": "git",
-    "url": "git@bitbucket.org:mcsaatchi/carnaby-dom.git"
+    "url": "git@bitbucket.org:mcsaatchi/carnaby-transform.git"
   },
   "author": "leon.coto@mcsaatchi.com",
   "license": "ISC",
