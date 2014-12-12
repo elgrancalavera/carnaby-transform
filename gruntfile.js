@@ -1,20 +1,22 @@
 'use strict';
+var amdclean    = require('amdclean')
+,   path        = require('path')
 
 module.exports = function(grunt) {
 
-    //--------------------------------------------------------------------------
-    //
-    // configuration
-    //
-    //--------------------------------------------------------------------------
+    // https://github.com/umdjs/umd/blob/master/returnExports.js
+    function AMD_to_UMD_returnExports(data) {
+        var src     = path.join(grunt.config('paths.requirejs.build'), data.path)
+        ,   dest    = path.join(grunt.config('paths.dist'), data.path)
+        ,   start   = grunt.file.read(grunt.config('paths.wrap.start'))
+        ,   end     = grunt.file.read(grunt.config('paths.wrap.end'))
+        grunt.file.write(dest, amdclean.clean({
+            filePath: src,
+            wrap: { start: start, end: end }
+        }))
+    }
 
     grunt.initConfig({
-
-        //----------------------------------
-        //
-        // Setup
-        //
-        //----------------------------------
 
         files: {
             grunt: [
@@ -30,6 +32,19 @@ module.exports = function(grunt) {
                 'src/**/*.js',
                 '!<%= files.specs %>'
             ]
+        },
+
+        paths: {
+            requirejs: {
+                base: 'src',
+                config: 'src/main.js',
+                build: 'build'
+            },
+            wrap: {
+                start: 'wrap/start.js',
+                end: 'wrap/end.js',
+            },
+            dist: 'dist'
         },
 
         //----------------------------------
@@ -139,7 +154,54 @@ module.exports = function(grunt) {
                     reporter: 'Spec'
                 }
             }
-        }
+        },
+
+        //----------------------------------
+        //
+        // requirejs
+        //
+        //----------------------------------
+
+        requirejs: {
+            dist: {
+                options: {
+                    baseUrl: '<%= paths.requirejs.base %>',
+                    mainConfigFile: '<%= paths.requirejs.config %>',
+                    dir: '<%= paths.requirejs.build %>',
+                    optimize: 'none',
+                // https://github.com/umdjs/umd/blob/master/returnExports.js
+                    onModuleBundleComplete: AMD_to_UMD_returnExports
+                }
+            }
+        },
+
+        //----------------------------------
+        //
+        // uglify
+        //
+        //----------------------------------
+
+        uglify: {
+            dist: {
+                options: {
+                    sourceMap: true,
+                },
+                files: {
+                    'dist/transform.min.js': ['dist/transform.js']
+                }
+            }
+        },
+
+        //----------------------------------
+        //
+        // clean
+        //
+        //----------------------------------
+
+        clean: [
+            'dist',
+            'build'
+        ]
     })
 
     //--------------------------------------------------------------------------
@@ -154,9 +216,12 @@ module.exports = function(grunt) {
         'default',
         'Runs all tests and builds the project.',
         [
+            'clean',
             'jshint',
             'connect:specs',
             'mocha:specs',
+            'requirejs:dist',
+            'uglify:dist',
         ]
     )
 

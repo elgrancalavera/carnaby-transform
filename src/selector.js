@@ -1,10 +1,9 @@
-// Selects elements and its children
-// leon.coto@mcsaatchi.com
-define(function (require) {
-    'use strict';
+/*
+ * Validate DOM elements against arbitrary `data-*` attributes.
+ */
+define(['underscore', 'jquery'], function (_, $) {
 
-    var _ = require('underscore')
-    ,   $ = require('jquery')
+    'use strict';
 
     function selectorValue(value) {
         return _.isString(value) ? '="' + value + '"' : ''
