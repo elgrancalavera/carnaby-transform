@@ -2,7 +2,7 @@
   "name": "carnaby-dom",
   "version": "0.0.0",
   "description": "DOM trees transformations",
-  "main": "gruntfile.js",
+  "main": "./dist/transform.js",
   "scripts": {
     "bower": "bower install",
     "test": "grunt"
