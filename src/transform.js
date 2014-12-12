@@ -1,17 +1,10 @@
-// Transforms DOM trees into a custom rule-based selector trees
-// leon.coto@mcsaatchi.com
-define(function (require) {
+/*
+ * Given an array of `rule` functions, describes transforms a DOM tree into
+ * a custom element tree.
+ */
+define(['underscore', 'jquery'], function (_, $) {
 
     'use strict';
-
-    var $ = require('jquery')
-    ,   _   = require('underscore')
-
-    //--------------------------------------------------------------------------
-    //
-    // Util
-    //
-    //--------------------------------------------------------------------------
 
     function children(el) {
         return $(el).children()
@@ -31,12 +24,6 @@ define(function (require) {
     function validChild(node, parentRule) {
         return !!node && parentRule.isValidChild(node.el)
     }
-
-    //--------------------------------------------------------------------------
-    //
-    // Transform
-    //
-    //--------------------------------------------------------------------------
 
     return function(rules) {
 
@@ -69,84 +56,3 @@ define(function (require) {
         }
     }
 });
-
-/*
-
-//--------------------------------------------------------------------------
-//
-// Trees
-//
-//--------------------------------------------------------------------------
-
-//----------------------------------
-//
-// Empty tree
-//
-//----------------------------------
-
-{}
-
-//----------------------------------
-//
-// Single element tree
-//
-//----------------------------------
-
-{
-    el: el,
-    rule: rule,
-    children: []
-}
-
-//----------------------------------
-//
-// Multiple element tree
-//
-//----------------------------------
-
-{
-    el: el,
-    rule: rule,
-    children:
-    [
-        {
-            el: el,
-            children: []
-        },
-        {
-            el: el,
-            children: []
-        }
-    ]
-}
-
-//--------------------------------------------------------------------------
-//
-// Lists
-//
-//--------------------------------------------------------------------------
-
-//----------------------------------
-//
-// Empty list
-//
-//----------------------------------
-
-[]
-
-//----------------------------------
-//
-// List
-//
-//----------------------------------
-
-[
-    { el: el, rule: rule },
-    { el: el, rule: rule },
-    { el: el, rule: rule },
-    { el: el, rule: rule },
-    { el: el, rule: rule },
-    { el: el, rule: rule },
-    { el: el, rule: rule },
-]
-*/

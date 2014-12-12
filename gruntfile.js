@@ -1,20 +1,23 @@
 'use strict';
+var amdclean    = require('amdclean')
+,   path        = require('path')
 
 module.exports = function(grunt) {
 
-    //--------------------------------------------------------------------------
-    //
-    // configuration
-    //
-    //--------------------------------------------------------------------------
+    // https://www.npmjs.com/package/amdclean
+    function AMD_to_UMD_returnExports(data) {
+        var src     = path.join(grunt.config('paths.requirejs.build'), data.path)
+        ,   dest    = path.join(grunt.config('paths.dist'), data.path)
+        ,   start   = grunt.file.read(grunt.config('paths.wrap.start'))
+        ,   end     = grunt.file.read(grunt.config('paths.wrap.end'))
+        grunt.file.write(dest, amdclean.clean({
+            filePath: src,
+            // https://github.com/umdjs/umd/blob/master/returnExports.js
+            wrap: { start: start, end: end }
+        }))
+    }
 
     grunt.initConfig({
-
-        //----------------------------------
-        //
-        // Setup
-        //
-        //----------------------------------
 
         files: {
             grunt: [
@@ -30,6 +33,19 @@ module.exports = function(grunt) {
                 'src/**/*.js',
                 '!<%= files.specs %>'
             ]
+        },
+
+        paths: {
+            requirejs: {
+                base: 'src',
+                config: 'src/main.js',
+                build: 'build'
+            },
+            wrap: {
+                start: 'wrap/start.js',
+                end: 'wrap/end.js',
+            },
+            dist: 'dist'
         },
 
         //----------------------------------
@@ -139,20 +155,60 @@ module.exports = function(grunt) {
                     reporter: 'Spec'
                 }
             }
-        }
-    })
+        },
 
-    //--------------------------------------------------------------------------
-    //
-    // task aliases
-    //
-    //--------------------------------------------------------------------------
+        //----------------------------------
+        //
+        // requirejs
+        //
+        //----------------------------------
+
+        requirejs: {
+            dist: {
+                options: {
+                    baseUrl: '<%= paths.requirejs.base %>',
+                    mainConfigFile: '<%= paths.requirejs.config %>',
+                    dir: '<%= paths.requirejs.build %>',
+                    optimize: 'none',
+                    onModuleBundleComplete: AMD_to_UMD_returnExports
+                }
+            }
+        },
+
+        //----------------------------------
+        //
+        // uglify
+        //
+        //----------------------------------
+
+        uglify: {
+            dist: {
+                options: {
+                    sourceMap: true,
+                },
+                files: {
+                    'dist/transform.min.js': ['dist/transform.js']
+                }
+            }
+        },
+
+        //----------------------------------
+        //
+        // clean
+        //
+        //----------------------------------
+
+        clean: [
+            'dist',
+            'build'
+        ]
+    })
 
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
 
     grunt.registerTask(
-        'default',
-        'Runs all tests and builds the project.',
+        'test',
+        'Lints and runs all specs.',
         [
             'jshint',
             'connect:specs',
@@ -161,11 +217,22 @@ module.exports = function(grunt) {
     )
 
     grunt.registerTask(
+        'default',
+        'Tests snd builds.',
+        [
+            'test',
+            'clean',
+            'requirejs:dist',
+            'uglify:dist',
+        ]
+    )
+
+    grunt.registerTask(
         'dev',
-        'Runs `grunt` and then watches for changes to run addtional tasks.',
+        'Lints, starts connect and watches for changes.',
         [
             'jshint',
-            'connect',
+            'connect:specs',
             'watch',
         ]
     )

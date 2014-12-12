@@ -4,8 +4,8 @@
 define(function (require) {
     'use strict';
 
-    var rule        = require('rule')
-    ,   selector    = require('selector')
+    var selector    = require('selector')
+    ,   rule        = require('rule')
     ,   transform   = require('transform')
     ,   _           = require('underscore')
     ,   qs          = _.bind(document.querySelector, document)
