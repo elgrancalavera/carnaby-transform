@@ -169,7 +169,6 @@ module.exports = function(grunt) {
                     mainConfigFile: '<%= paths.requirejs.config %>',
                     dir: '<%= paths.requirejs.build %>',
                     optimize: 'none',
-                // https://github.com/umdjs/umd/blob/master/returnExports.js
                     onModuleBundleComplete: AMD_to_UMD_returnExports
                 }
             }
