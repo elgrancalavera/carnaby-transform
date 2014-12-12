@@ -4,7 +4,7 @@ var amdclean    = require('amdclean')
 
 module.exports = function(grunt) {
 
-    // https://github.com/umdjs/umd/blob/master/returnExports.js
+    // https://www.npmjs.com/package/amdclean
     function AMD_to_UMD_returnExports(data) {
         var src     = path.join(grunt.config('paths.requirejs.build'), data.path)
         ,   dest    = path.join(grunt.config('paths.dist'), data.path)
@@ -12,6 +12,7 @@ module.exports = function(grunt) {
         ,   end     = grunt.file.read(grunt.config('paths.wrap.end'))
         grunt.file.write(dest, amdclean.clean({
             filePath: src,
+            // https://github.com/umdjs/umd/blob/master/returnExports.js
             wrap: { start: start, end: end }
         }))
     }
