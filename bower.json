@@ -4,9 +4,9 @@
   "authors": [
     "Leon Coto <leon.coto@mcsaatchi.com>"
   ],
+  "main": "./dist/transform.js",
   "description": "JavaScript DOM parsing",
   "license": "MIT",
-  "private": true,
   "ignore": [
     "node_modules",
     "bower_components",
