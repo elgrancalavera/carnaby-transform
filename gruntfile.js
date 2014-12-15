@@ -8,8 +8,8 @@ module.exports = function(grunt) {
     function AMD_to_UMD_returnExports(data) {
         var src     = path.join(grunt.config('paths.requirejs.build'), data.path)
         ,   dest    = path.join(grunt.config('paths.dist'), data.path)
-        ,   start   = grunt.file.read(grunt.config('paths.wrap.start'))
-        ,   end     = grunt.file.read(grunt.config('paths.wrap.end'))
+        ,   start   = grunt.template.process(grunt.file.read(grunt.config('paths.wrap.start')))
+        ,   end     = grunt.template.process(grunt.file.read(grunt.config('paths.wrap.end')))
         grunt.file.write(dest, amdclean.clean({
             filePath: src,
             // https://github.com/umdjs/umd/blob/master/returnExports.js
@@ -18,6 +18,8 @@ module.exports = function(grunt) {
     }
 
     grunt.initConfig({
+
+        pkg: grunt.file.readJSON('package.json'),
 
         files: {
             grunt: [

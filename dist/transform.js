@@ -1,3 +1,11 @@
+//--------------------------------------------------------------------------
+//
+// carnaby.transform
+// Copyright (c) 2014 M&C Saatchi
+// Distributed under MIT license
+//
+//--------------------------------------------------------------------------
+
 ;(function(root, factory) {
     if (typeof define === 'function' && define.amd) {
         define(['underscore', 'jquery'], factory);
@@ -119,6 +127,7 @@ rule = function (_) {
     };
   };
 }(underscore);
+transform.version = '0.1.0'
 transform.selector = selector;
 transform.rule = rule;
 return transform;

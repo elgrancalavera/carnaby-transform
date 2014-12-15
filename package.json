@@ -12,7 +12,7 @@
     "url": "https://bitbucket.org/mcsaatchi/carnaby-transform.git"
   },
   "author": "leon.coto@mcsaatchi.com",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "matchdep": "~0.3.0",
     "grunt": "~0.4.5",
