@@ -1,6 +1,6 @@
 {
-  "name": "carnaby-dom",
-  "version": "0.1.0",
+  "name": "carnaby-transform",
+  "version": "0.1.1",
   "description": "DOM trees transformations",
   "main": "./dist/transform.js",
   "scripts": {
@@ -9,10 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@bitbucket.org:mcsaatchi/carnaby-transform.git"
+    "url": "https://bitbucket.org/mcsaatchi/carnaby-transform.git"
   },
   "author": "leon.coto@mcsaatchi.com",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "matchdep": "~0.3.0",
     "grunt": "~0.4.5",
@@ -23,6 +23,11 @@
     "grunt-contrib-requirejs": "~0.4.4",
     "amdclean": "~2.4.0",
     "grunt-contrib-clean": "~0.6.0",
-    "grunt-contrib-uglify": "~0.6.0"
+    "grunt-contrib-uglify": "~0.6.0",
+    "semver": "~4.1.0"
+  },
+  "dependencies": {
+    "underscore": "~1.7.0",
+    "jquery": "~2.1.1"
   }
 }

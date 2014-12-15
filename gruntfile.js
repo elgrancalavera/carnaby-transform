@@ -8,8 +8,8 @@ module.exports = function(grunt) {
     function AMD_to_UMD_returnExports(data) {
         var src     = path.join(grunt.config('paths.requirejs.build'), data.path)
         ,   dest    = path.join(grunt.config('paths.dist'), data.path)
-        ,   start   = grunt.file.read(grunt.config('paths.wrap.start'))
-        ,   end     = grunt.file.read(grunt.config('paths.wrap.end'))
+        ,   start   = grunt.template.process(grunt.file.read(grunt.config('paths.wrap.start')))
+        ,   end     = grunt.template.process(grunt.file.read(grunt.config('paths.wrap.end')))
         grunt.file.write(dest, amdclean.clean({
             filePath: src,
             // https://github.com/umdjs/umd/blob/master/returnExports.js
@@ -18,6 +18,8 @@ module.exports = function(grunt) {
     }
 
     grunt.initConfig({
+
+        pkg: grunt.file.readJSON('package.json'),
 
         files: {
             grunt: [
@@ -32,6 +34,13 @@ module.exports = function(grunt) {
             src: [
                 'src/**/*.js',
                 '!<%= files.specs %>'
+            ],
+            tasks: [
+                'tasks/**/*.js'
+            ],
+            meta: [
+                'package.json',
+                'bower.json'
             ]
         },
 
@@ -63,6 +72,14 @@ module.exports = function(grunt) {
                     src: '<%= files.grunt %>'
                 }
             },
+            tasks: {
+                options: {
+                    jshintrc: '.jshintrc'
+                },
+                files: {
+                    src: '<%= files.tasks %>'
+                }
+            },
             specs: {
                 options: {
                     jshintrc: 'src/specs/.jshintrc'
@@ -78,7 +95,7 @@ module.exports = function(grunt) {
                 files: {
                     src: '<%= files.src %>'
                 }
-            }
+            },
         },
 
         //----------------------------------
@@ -115,6 +132,12 @@ module.exports = function(grunt) {
                 tasks: [
                     'jshint:src',
                     'mocha:specs',
+                ]
+            },
+            tasks: {
+                files: '<%= files.tasks %>',
+                tasks: [
+                    'jshint:tasks'
                 ]
             }
         },
@@ -205,6 +228,7 @@ module.exports = function(grunt) {
     })
 
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
+    grunt.loadTasks('tasks')
 
     grunt.registerTask(
         'test',
