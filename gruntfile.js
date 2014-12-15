@@ -34,6 +34,13 @@ module.exports = function(grunt) {
             src: [
                 'src/**/*.js',
                 '!<%= files.specs %>'
+            ],
+            tasks: [
+                'tasks/**/*.js'
+            ],
+            meta: [
+                'package.json',
+                'bower.json'
             ]
         },
 
@@ -65,6 +72,14 @@ module.exports = function(grunt) {
                     src: '<%= files.grunt %>'
                 }
             },
+            tasks: {
+                options: {
+                    jshintrc: '.jshintrc'
+                },
+                files: {
+                    src: '<%= files.tasks %>'
+                }
+            },
             specs: {
                 options: {
                     jshintrc: 'src/specs/.jshintrc'
@@ -80,7 +95,7 @@ module.exports = function(grunt) {
                 files: {
                     src: '<%= files.src %>'
                 }
-            }
+            },
         },
 
         //----------------------------------
@@ -117,6 +132,12 @@ module.exports = function(grunt) {
                 tasks: [
                     'jshint:src',
                     'mocha:specs',
+                ]
+            },
+            tasks: {
+                files: '<%= files.tasks %>',
+                tasks: [
+                    'jshint:tasks'
                 ]
             }
         },
@@ -207,6 +228,7 @@ module.exports = function(grunt) {
     })
 
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
+    grunt.loadTasks('tasks')
 
     grunt.registerTask(
         'test',

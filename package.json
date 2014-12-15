@@ -1,5 +1,5 @@
 {
-  "name": "carnaby-dom",
+  "name": "carnaby-transform",
   "version": "0.1.0",
   "description": "DOM trees transformations",
   "main": "./dist/transform.js",
@@ -23,7 +23,8 @@
     "grunt-contrib-requirejs": "~0.4.4",
     "amdclean": "~2.4.0",
     "grunt-contrib-clean": "~0.6.0",
-    "grunt-contrib-uglify": "~0.6.0"
+    "grunt-contrib-uglify": "~0.6.0",
+    "semver": "~4.1.0"
   },
   "dependencies": {
     "underscore": "~1.7.0",
