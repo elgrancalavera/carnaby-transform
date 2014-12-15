@@ -1,28 +1,30 @@
 {
-  "name": "carnaby-dom",
+  "name": "carnaby-transform",
   "version": "0.1.0",
   "authors": [
     "Leon Coto <leon.coto@mcsaatchi.com>"
   ],
+  "description": "DOM trees transformations",
   "main": "./dist/transform.js",
-  "description": "JavaScript DOM parsing",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
   "license": "MIT",
   "ignore": [
+    "**/.*",
     "node_modules",
     "bower_components",
-    "specs",
-    "build",
-    "wrap",
-    "src",
-    "*.sublime-*",
+    "*.sublime-*"
   ],
-  "dependencies": {
-    "jquery": "^1.8.0 || ^2.0.0",
-    "underscore": "1.4.4 - 1.6.0",
-  },
   "devDependencies": {
-    "mocha": "~2.0.1",
     "chai": "~1.10.0",
+    "mocha": "~2.0.1",
     "requirejs": "~2.1.15"
+  },
+  "dependencies": {
+    "underscore": "1.4.4 - 1.6.0",
+    "jquery": "^1.8.0 || ^2.0.0"
   }
 }
