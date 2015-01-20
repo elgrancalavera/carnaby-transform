@@ -1,7 +1,7 @@
 //--------------------------------------------------------------------------
 //
 // carnaby.transform
-// Copyright (c) 2014 M&C Saatchi
+// Copyright (c) 2015 M&C Saatchi
 // Distributed under MIT license
 //
 //--------------------------------------------------------------------------
@@ -127,7 +127,7 @@ rule = function (_) {
     };
   };
 }(underscore);
-transform.version = '0.1.2'
+transform.version = '0.1.4'
 transform.selector = selector;
 transform.rule = rule;
 return transform;
