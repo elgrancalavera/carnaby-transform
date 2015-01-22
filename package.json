@@ -24,7 +24,9 @@
     "amdclean": "~2.4.0",
     "grunt-contrib-clean": "~0.6.0",
     "grunt-contrib-uglify": "~0.6.0",
-    "semver": "~4.1.0"
+    "semver": "~4.1.0",
+    "grunt-release": "~0.10.0",
+    "lodash": "~2.4.1"
   },
   "dependencies": {
     "underscore": "~1.7.0",
