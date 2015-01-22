@@ -1,1 +1,4 @@
-grunt configureRelease release --bump && grunt default && grunt configureRelease release --publish
+grunt configureRelease release --bump \
+&& grunt default \
+&& git add dist/* \
+&& grunt configureRelease release --publish
