@@ -24,35 +24,18 @@ module.exports = function(grunt) {
 
      function() {
 
+        var opts = this.options()
+
         function set(options) {
-            grunt.config('release.options', _.extend({
-                additionalFiles: [ 'bower.json' ],
-                tagName: 'v<%= version %>',
-            }, options))
+            grunt.config('release.options', _.extend({}, opts.base, options))
         }
 
         if (grunt.option('bump')) {
-            set({
-                bump: true,
-                commit: false,
-                push: false,
-                tag: false,
-                pushTags: false,
-                add: false,
-                npm: false,
-            })
+            set(opts.bump)
         }
 
         if (grunt.option('publish')) {
-            set({
-                bump: false,
-                commit: true,
-                push: true,
-                tag: true,
-                pushTags: true,
-                add: true,
-                npm: true,
-            })
+            set(opts.publish)
         }
 
         grunt.verbose.writeflags(grunt.config('release'), 'release')

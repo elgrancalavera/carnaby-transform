@@ -188,6 +188,43 @@ module.exports = function(grunt) {
 
         //----------------------------------
         //
+        // configureRelease
+        //
+        //----------------------------------
+
+        configureRelease: {
+            options: {
+                base: {
+                    additionalFiles: [ 'bower.json' ],
+                    tagName: 'v<%= version %>',
+                },
+
+                // --bump
+                bump: {
+                    bump: true,
+                    commit: false,
+                    push: false,
+                    tag: false,
+                    pushTags: false,
+                    add: false,
+                    npm: false,
+                },
+
+                // --publish
+                publish: {
+                    bump: false,
+                    commit: true,
+                    push: true,
+                    tag: true,
+                    pushTags: true,
+                    add: true,
+                    npm: true,
+                }
+            }
+        },
+
+        //----------------------------------
+        //
         // clean
         //
         //----------------------------------
