@@ -1,21 +1,8 @@
 'use strict';
-var amdclean    = require('amdclean')
-,   path        = require('path')
 
 module.exports = function(grunt) {
 
-    // https://www.npmjs.com/package/amdclean
-    function AMD_to_UMD_returnExports(data) {
-        var src     = path.join(grunt.config('paths.requirejs.build'), data.path)
-        ,   dest    = path.join(grunt.config('paths.dist'), data.path)
-        ,   start   = grunt.template.process(grunt.file.read(grunt.config('paths.wrap.start')))
-        ,   end     = grunt.template.process(grunt.file.read(grunt.config('paths.wrap.end')))
-        grunt.file.write(dest, amdclean.clean({
-            filePath: src,
-            // https://github.com/umdjs/umd/blob/master/returnExports.js
-            wrap: { start: start, end: end }
-        }))
-    }
+    var utils = require('./grunt/lib/utils')(grunt)
 
     grunt.initConfig({
 
@@ -23,7 +10,8 @@ module.exports = function(grunt) {
 
         files: {
             grunt: [
-                'gruntfile.js'
+                'gruntfile.js',
+                'grunt/**/*.js'
             ],
             specs: [
                 'src/specs/**/*.js'
@@ -34,9 +22,6 @@ module.exports = function(grunt) {
             src: [
                 'src/**/*.js',
                 '!<%= files.specs %>'
-            ],
-            tasks: [
-                'tasks/**/*.js'
             ],
             meta: [
                 'package.json',
@@ -72,14 +57,6 @@ module.exports = function(grunt) {
                     src: '<%= files.grunt %>'
                 }
             },
-            tasks: {
-                options: {
-                    jshintrc: '.jshintrc'
-                },
-                files: {
-                    src: '<%= files.tasks %>'
-                }
-            },
             specs: {
                 options: {
                     jshintrc: 'src/specs/.jshintrc'
@@ -107,7 +84,7 @@ module.exports = function(grunt) {
         watch: {
             grunt: {
                 files: '<%= files.grunt %>',
-                tasks: [
+                grunt: [
                     'jshint:grunt',
                 ]
             },
@@ -119,7 +96,7 @@ module.exports = function(grunt) {
                     '<%= files.specs %>',
                     '<%= files.specsrunner %>',
                 ],
-                tasks: [
+                grunt: [
                     'jshint:specs',
                     'mocha:specs',
                 ]
@@ -129,17 +106,11 @@ module.exports = function(grunt) {
                     livereload: true
                 },
                 files: '<%= files.src %>',
-                tasks: [
+                grunt: [
                     'jshint:src',
                     'mocha:specs',
                 ]
             },
-            tasks: {
-                files: '<%= files.tasks %>',
-                tasks: [
-                    'jshint:tasks'
-                ]
-            }
         },
 
         //----------------------------------
@@ -193,7 +164,7 @@ module.exports = function(grunt) {
                     mainConfigFile: '<%= paths.requirejs.config %>',
                     dir: '<%= paths.requirejs.build %>',
                     optimize: 'none',
-                    onModuleBundleComplete: AMD_to_UMD_returnExports
+                    onModuleBundleComplete: utils.AMD_to_UMD_returnExports
                 }
             }
         },
@@ -217,6 +188,43 @@ module.exports = function(grunt) {
 
         //----------------------------------
         //
+        // configureRelease
+        //
+        //----------------------------------
+
+        configureRelease: {
+            options: {
+                base: {
+                    additionalFiles: [ 'bower.json' ],
+                    tagName: 'v<%= version %>',
+                },
+
+                // --bump
+                bump: {
+                    bump: true,
+                    commit: false,
+                    push: false,
+                    tag: false,
+                    pushTags: false,
+                    add: false,
+                    npm: false,
+                },
+
+                // --publish
+                publish: {
+                    bump: false,
+                    commit: true,
+                    push: true,
+                    tag: true,
+                    pushTags: true,
+                    add: true,
+                    npm: true,
+                }
+            }
+        },
+
+        //----------------------------------
+        //
         // clean
         //
         //----------------------------------
@@ -228,7 +236,7 @@ module.exports = function(grunt) {
     })
 
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
-    grunt.loadTasks('tasks')
+    grunt.loadTasks('grunt/tasks')
 
     grunt.registerTask(
         'test',
