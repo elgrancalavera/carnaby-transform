@@ -2,7 +2,6 @@
 'use strict';
 
 var path        = require('path')
-,   _           = require('lodash')
 ,   amdclean    = require('amdclean')
 
 module.exports = function(grunt){
