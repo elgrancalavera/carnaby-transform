@@ -194,11 +194,6 @@ module.exports = function(grunt) {
 
         configureRelease: {
             options: {
-                base: {
-                    additionalFiles: [ 'bower.json' ],
-                    tagName: 'v<%= version %>',
-                },
-
                 // --bump
                 bump: {
                     bump: true,
@@ -220,6 +215,13 @@ module.exports = function(grunt) {
                     add: true,
                     npm: true,
                 }
+            }
+        },
+
+        release: {
+            options: {
+                additionalFiles: [ 'bower.json' ],
+                tagName: 'v<%= version %>',
             }
         },
 
