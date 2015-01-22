@@ -1,6 +1,6 @@
 {
   "name": "carnaby-transform",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "authors": [
     "Leon Coto <leon.coto@mcsaatchi.com>"
   ],
@@ -16,7 +16,9 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "*.sublime-*"
+    "*.sublime-*",
+    "build",
+    "wrap"
   ],
   "devDependencies": {
     "chai": "~1.10.0",
