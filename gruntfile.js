@@ -225,6 +225,23 @@ module.exports = function(grunt) {
             }
         },
 
+        releaser: {
+            options: {
+                additionalFiles: [ 'bower.json' ],
+                tagName: 'v<%= version %>',
+            },
+            bump: {
+                options: {
+                    bump: true
+                }
+            },
+            publish: {
+                options: {
+                    bump: false
+                }
+            }
+        },
+
         //----------------------------------
         //
         // clean

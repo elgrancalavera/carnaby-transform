@@ -4,7 +4,6 @@ var _ = require('lodash')
 
 module.exports = function(grunt) {
 
-
     grunt.registerTask(
 
     'configureRelease',
