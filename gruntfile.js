@@ -200,7 +200,7 @@ module.exports = function(grunt) {
             bump: {
                 options: {
                     bump: true,
-                    commit: false,
+                    commit: true,
                     push: false,
                     tag: false,
                     pushTags: false,
@@ -212,7 +212,7 @@ module.exports = function(grunt) {
             release: {
                 options: {
                     bump: false,
-                    commit: true,
+                    commit: false,
                     push: true,
                     tag: true,
                     pushTags: true,
