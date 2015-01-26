@@ -4,7 +4,6 @@ var _ = require('lodash')
 
 module.exports = function(grunt) {
 
-
     grunt.registerTask(
 
     'configureRelease',
@@ -27,7 +26,9 @@ module.exports = function(grunt) {
         var opts = this.options()
 
         function set(options) {
-            grunt.config('release.options', _.extend({}, opts.base, options))
+            _.each(options, function(value, key) {
+                grunt.config('release.options.' + key, value)
+            })
         }
 
         if (grunt.option('bump')) {
