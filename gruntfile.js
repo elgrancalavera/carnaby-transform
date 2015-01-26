@@ -200,11 +200,11 @@ module.exports = function(grunt) {
             bump: {
                 options: {
                     bump: true,
+                    add: true,
                     commit: true,
                     push: false,
                     tag: false,
                     pushTags: false,
-                    add: false,
                     npm: false,
                     reloadpkg: true
                 }
@@ -213,10 +213,10 @@ module.exports = function(grunt) {
                 options: {
                     bump: false,
                     commit: false,
+                    add: false,
                     push: true,
                     tag: true,
                     pushTags: true,
-                    add: true,
                     npm: true,
                 }
             }
