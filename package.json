@@ -1,6 +1,6 @@
 {
   "name": "carnaby-transform",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "DOM trees transformations",
   "main": "./dist/transform.js",
   "scripts": {
