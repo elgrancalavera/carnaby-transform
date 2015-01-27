@@ -63,11 +63,7 @@ transform = function (_, $) {
       return currentNode;
     }
     return function (root) {
-      return {
-        tree: function () {
-          return nodeIterator(node(root, findRule(root)));
-        }
-      };
+      return nodeIterator(node(root, findRule(root)));
     };
   };
 }(underscore, jquery);
@@ -76,8 +72,11 @@ selector = function (_, $) {
   function selectorValue(value) {
     return _.isString(value) ? '="' + value + '"' : '';
   }
+  function attribute(name) {
+    return 'data-' + name;
+  }
   function selector(name, value) {
-    return '[data-' + name + selectorValue(value) + ']';
+    return '[' + attribute(name) + selectorValue(value) + ']';
   }
   return function (name) {
     var sel = function (el) {
@@ -85,7 +84,7 @@ selector = function (_, $) {
       var valid = $el.is(selector(name));
       return {
         value: function () {
-          return valid ? $el.attr(name) : undefined;
+          return valid ? $el.attr(attribute(name)) : undefined;
         },
         isValid: function () {
           return valid;
