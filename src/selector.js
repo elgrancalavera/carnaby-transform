@@ -9,8 +9,12 @@ define(['underscore', 'jquery'], function (_, $) {
         return _.isString(value) ? '="' + value + '"' : ''
     }
 
+    function attribute(name) {
+        return 'data-' + name
+    }
+
     function selector(name, value) {
-        return '[data-' + name + selectorValue(value) + ']'
+        return '[' + attribute(name) + selectorValue(value) + ']'
     }
 
     return function(name) {
@@ -19,7 +23,7 @@ define(['underscore', 'jquery'], function (_, $) {
             var valid = $el.is(selector(name))
             return {
                 value: function() {
-                    return valid ? $el.attr(name) : undefined
+                    return valid ? $el.attr(attribute(name)) : undefined
                 },
                 isValid: function() {
                     return valid
