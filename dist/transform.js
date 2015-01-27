@@ -126,7 +126,7 @@ rule = function (_) {
     };
   };
 }(underscore);
-transform.VERSION = '0.1.11'
+transform.VERSION = '0.1.12'
 transform.selector = selector;
 transform.rule = rule;
 return transform;
