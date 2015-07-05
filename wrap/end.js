@@ -1,7 +1,5 @@
 
 transform.VERSION = '<%= pkg.version %>'
-transform.selector = selector;
-transform.rule = rule;
 return transform;
 });
 /*
@@ -43,5 +41,5 @@ J     \         /._           /        -tI/ |
        L    \('`    \                  ('`    \
         ) _.'\`-....'                   `-....'
        ('`    \
-        `-.___/   sk
+        `-.___/
 */

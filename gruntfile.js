@@ -2,8 +2,6 @@
 
 module.exports = function(grunt) {
 
-    var utils = require('./grunt/lib/utils')(grunt)
-
     grunt.initConfig({
 
         pkg: grunt.file.readJSON('package.json'),
@@ -14,7 +12,7 @@ module.exports = function(grunt) {
                 'grunt/**/*.js'
             ],
             specs: [
-                'src/specs/**/*.js'
+                'test/specs/**/*.js'
             ],
             specsrunner: [
                 'index.html'
@@ -59,7 +57,7 @@ module.exports = function(grunt) {
             },
             specs: {
                 options: {
-                    jshintrc: 'src/specs/.jshintrc'
+                    jshintrc: 'test/specs/.jshintrc'
                 },
                 files: {
                     src: '<%= files.specs %>'
@@ -88,7 +86,7 @@ module.exports = function(grunt) {
                     'jshint:grunt',
                 ]
             },
-            specs: {
+            test: {
                 options: {
                     livereload: true
                 },
@@ -98,7 +96,7 @@ module.exports = function(grunt) {
                 ],
                 tasks: [
                     'jshint:specs',
-                    'mocha:specs',
+                    'mocha:dev',
                 ]
             },
             src: {
@@ -108,7 +106,7 @@ module.exports = function(grunt) {
                 files: '<%= files.src %>',
                 tasks: [
                     'jshint:src',
-                    'mocha:specs',
+                    'mocha:dev',
                 ]
             },
         },
@@ -120,7 +118,7 @@ module.exports = function(grunt) {
         //----------------------------------
 
         connect: {
-            specs: {
+            test: {
                 options: {
                     hostname: 'localhost',
                     port: grunt.option('connectPort') || 9000,
@@ -139,14 +137,22 @@ module.exports = function(grunt) {
             options: {
                 // requirejs will call `mocha.run()`
                 run: false,
-                timeout: grunt.option('timeout') || 5000
+                timeout: grunt.option('timeout') || 5000,
+                reporter: 'Spec'
             },
-            specs: {
+            dev: {
                 options: {
                     urls: [
-                        'http://<%= connect.specs.options.hostname %>:<%= connect.specs.options.port %>/'
-                    ],
-                    reporter: 'Spec'
+                        'http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/test'
+                    ]
+                }
+            },
+            dist: {
+                options: {
+                    urls: [
+                        'http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/test/?dist=true',
+                        'http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/test/?dist=true&min=true'
+                    ]
                 }
             }
         },
@@ -160,11 +166,20 @@ module.exports = function(grunt) {
         requirejs: {
             dist: {
                 options: {
-                    baseUrl: '<%= paths.requirejs.base %>',
-                    mainConfigFile: '<%= paths.requirejs.config %>',
-                    dir: '<%= paths.requirejs.build %>',
+                    baseUrl: 'src',
+                    dir: '.tmp',
                     optimize: 'none',
-                    onModuleBundleComplete: utils.AMD_to_UMD_returnExports
+                    paths: {
+                        underscore: 'empty:',
+                        jquery: 'empty:'
+                    },
+                    modules: [{
+                        name: 'transform',
+                        include: [
+                            'selector',
+                            'rule'
+                        ]
+                    }]
                 }
             }
         },
@@ -222,6 +237,17 @@ module.exports = function(grunt) {
             }
         },
 
+        bundle: {
+            options: {
+                src: '.tmp/transform.js',
+                dest: 'dist/transform.js',
+                wrapper: {
+                    start: '<%= paths.wrap.start %>',
+                    end: '<%= paths.wrap.end %>'
+                }
+            }
+        },
+
         //----------------------------------
         //
         // clean
@@ -230,30 +256,25 @@ module.exports = function(grunt) {
 
         clean: [
             'dist',
-            'build'
+            '.tmp'
         ]
     })
 
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
-
-    grunt.registerTask(
-        'test',
-        'Lints and runs all specs.',
-        [
-            'jshint',
-            'connect:specs',
-            'mocha:specs',
-        ]
-    )
+    grunt.loadTasks('tasks')
 
     grunt.registerTask(
         'default',
-        'Tests and builds.',
+        'Build',
         [
-            'test',
+            'jshint',
             'clean',
             'requirejs:dist',
+            'bundle',
             'uglify:dist',
+            'connect:test',
+            'mocha:dev',
+            'mocha:dist'
         ]
     )
 
@@ -262,7 +283,7 @@ module.exports = function(grunt) {
         'Lints, starts connect and watches for changes.',
         [
             'jshint',
-            'connect:specs',
+            'connect:test',
             'watch',
         ]
     )

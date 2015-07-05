@@ -2,30 +2,19 @@
  * Given an array of `rule` functions, describes transforms a DOM tree into
  * a custom element tree.
  */
-define(['underscore', 'jquery'], function (_, $) {
+define(function(require) {
 
     'use strict';
 
-    function children(el) {
-        return $(el).children()
-    }
+    var _ = require('underscore')
+    , $ = require('jquery')
 
-    function ruleFinder(rules, el) {
-        return _.find(rules, function(rule) {
-            return rule.isValidRoot(el)
-        })
-    }
+    transform.rule = require('rule')
+    transform.selector = require('selector')
 
-    function node(el, rule) {
-        if (!rule) { return }
-        return { el: el, rule: rule }
-    }
+    return transform
 
-    function validChild(node, parentRule) {
-        return !!node && parentRule.isValidChild(node.el)
-    }
-
-    return function(rules) {
+    function transform(rules) {
 
         var findRule = _.partial(ruleFinder, rules || [])
 
@@ -51,4 +40,24 @@ define(['underscore', 'jquery'], function (_, $) {
             return nodeIterator(node(root, findRule(root)))
         }
     }
+
+    function children(el) {
+        return $(el).children()
+    }
+
+    function ruleFinder(rules, el) {
+        return _.find(rules, function(rule) {
+            return rule.isValidRoot(el)
+        })
+    }
+
+    function node(el, rule) {
+        if (!rule) { return }
+        return { el: el, rule: rule }
+    }
+
+    function validChild(node, parentRule) {
+        return !!node && parentRule.isValidChild(node.el)
+    }
+
 });
