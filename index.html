@@ -68,12 +68,11 @@ require.config({
     }
 })
 require([
-    'jquery',
     'chai',
+    'jquery',
     'underscore',
     ],
-    function ($, chai, _) {
-
+    function (chai) {
     mocha.setup('bdd')
     require([
         'specs/selector',
@@ -82,7 +81,6 @@ require([
     ], function() {
         mocha.run()
     })
-
 })
 </script>
 <script src="//localhost:35729/livereload.js"></script>

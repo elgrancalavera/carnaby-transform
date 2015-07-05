@@ -37,5 +37,11 @@ define(function (require) {
         it('Should reject non-matching elements', function() {
             expect(f.appSelector(f.unknown).isValid()).not.to.be.ok()
         })
+
+        it('Should return selector attribute values.', function() {
+            var val = f.appSelector(f.singleApp).value()
+            expect(val).to.equal('myapp')
+        })
+
     })
 });

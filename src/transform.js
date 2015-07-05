@@ -48,11 +48,7 @@ define(['underscore', 'jquery'], function (_, $) {
         }
 
         return function(root) {
-            return {
-                tree: function() {
-                    return nodeIterator(node(root, findRule(root)))
-                }
-            }
+            return nodeIterator(node(root, findRule(root)))
         }
     }
 });
