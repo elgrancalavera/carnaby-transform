@@ -2,8 +2,6 @@
 
 module.exports = function(grunt) {
 
-    var utils = require('./grunt/lib/utils')(grunt)
-
     grunt.initConfig({
 
         pkg: grunt.file.readJSON('package.json'),
@@ -235,6 +233,17 @@ module.exports = function(grunt) {
             }
         },
 
+        bundle: {
+            options: {
+                src: '.tmp/transform.js',
+                dest: 'dist/transform.js',
+                wrapper: {
+                    start: '<%= paths.wrap.start %>',
+                    end: '<%= paths.wrap.end %>'
+                }
+            }
+        },
+
         //----------------------------------
         //
         // clean
@@ -248,6 +257,7 @@ module.exports = function(grunt) {
     })
 
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
+    grunt.loadTasks('tasks')
 
     grunt.registerTask(
         'test',
@@ -266,6 +276,7 @@ module.exports = function(grunt) {
             'test',
             'clean',
             'requirejs:dist',
+            'bundle',
             'uglify:dist',
         ]
     )
