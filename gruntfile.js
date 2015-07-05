@@ -160,11 +160,24 @@ module.exports = function(grunt) {
         requirejs: {
             dist: {
                 options: {
-                    baseUrl: '<%= paths.requirejs.base %>',
-                    mainConfigFile: '<%= paths.requirejs.config %>',
-                    dir: '<%= paths.requirejs.build %>',
+                    baseUrl: 'src',
+                    dir: '.tmp',
                     optimize: 'none',
-                    onModuleBundleComplete: utils.AMD_to_UMD_returnExports
+                    paths: {
+                        underscore: '../bower_components/underscore/underscore',
+                        jquery: '../bower_components/jquery/dist/jquery'
+                    },
+                    modules: [{
+                        name: 'transform',
+                        include: [
+                            'selector',
+                            'rule'
+                        ],
+                        exclude: [
+                            'jquery',
+                            'underscore'
+                        ]
+                    }]
                 }
             }
         },
