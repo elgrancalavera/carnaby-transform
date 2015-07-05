@@ -21,34 +21,34 @@ define(function (require) {
 
         describe('roots:', function() {
             it('Should reject invalid roots.', function() {
-                expect(f.appTransform(f.unknown).tree()).not.to.be.ok()
+                expect(f.appTransform(f.unknown)).not.to.be.ok()
             })
             it('Should accept valid roots.', function() {
-                var tree = f.appTransform(f.singleApp).tree()
+                var tree = f.appTransform(f.singleApp)
                 expect(tree.el).to.equal(f.singleApp)
             })
             it('Any element that matches a rule can be a valid root.', function() {
-                var tree = f.appTransform(f.singleComponent).tree()
+                var tree = f.appTransform(f.singleComponent)
                 expect(tree.el).to.equal(f.singleComponent)
             })
         })
 
         describe('nodes:', function() {
             it('Nodes should include a valid rule.', function() {
-                var tree = f.appTransform(f.singleApp).tree()
+                var tree = f.appTransform(f.singleApp)
                 expect(tree.rule).to.deep.equal(f.appRule)
             })
         })
 
         describe('children:', function() {
             it('Only elements matching children rules should be valid.', function() {
-                var tree = f.appTransform(f.singleApp).tree()
+                var tree = f.appTransform(f.singleApp)
                 expect(tree.children.length).to.equal(4)
             })
 
             it('All children should be found recursively.', function() {
 
-                var root = f.appTransform(f.singleApp).tree()
+                var root = f.appTransform(f.singleApp)
 
                 var componentOne = findChild(root, _.partial(byClassName, 'component one'))
                 expect(componentOne).to.be.ok()

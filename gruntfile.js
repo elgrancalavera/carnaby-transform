@@ -84,7 +84,7 @@ module.exports = function(grunt) {
         watch: {
             grunt: {
                 files: '<%= files.grunt %>',
-                grunt: [
+                tasks: [
                     'jshint:grunt',
                 ]
             },
@@ -96,7 +96,7 @@ module.exports = function(grunt) {
                     '<%= files.specs %>',
                     '<%= files.specsrunner %>',
                 ],
-                grunt: [
+                tasks: [
                     'jshint:specs',
                     'mocha:specs',
                 ]
@@ -106,7 +106,7 @@ module.exports = function(grunt) {
                     livereload: true
                 },
                 files: '<%= files.src %>',
-                grunt: [
+                tasks: [
                     'jshint:src',
                     'mocha:specs',
                 ]
@@ -248,7 +248,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask(
         'default',
-        'Tests snd builds.',
+        'Tests and builds.',
         [
             'test',
             'clean',
