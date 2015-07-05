@@ -162,18 +162,14 @@ module.exports = function(grunt) {
                     dir: '.tmp',
                     optimize: 'none',
                     paths: {
-                        underscore: '../bower_components/underscore/underscore',
-                        jquery: '../bower_components/jquery/dist/jquery'
+                        underscore: 'empty:',
+                        jquery: 'empty:'
                     },
                     modules: [{
                         name: 'transform',
                         include: [
                             'selector',
                             'rule'
-                        ],
-                        exclude: [
-                            'jquery',
-                            'underscore'
                         ]
                     }]
                 }
@@ -252,7 +248,7 @@ module.exports = function(grunt) {
 
         clean: [
             'dist',
-            'build'
+            '.tmp'
         ]
     })
 
