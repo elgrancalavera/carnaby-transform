@@ -59,12 +59,14 @@
 <script src="/bower_components/mocha/mocha.js"></script>
 <script src="/bower_components/requirejs/require.js"></script>
 <script>
+
 require.config({
-    baseUrl: '../src',
+    baseUrl: baseUrl(),
     paths: {
         underscore: '../bower_components/underscore/underscore',
         jquery: '../bower_components/jquery/dist/jquery',
         chai: '../bower_components/chai/chai',
+        transform: path()
     }
 })
 require([
@@ -82,6 +84,27 @@ require([
         mocha.run()
     })
 })
+
+function baseUrl() {
+    return isDist() ? '../dist' : '../src'
+}
+
+function path() {
+    return useMin() ? 'transform.min' : 'transform'
+}
+
+function isDist() {
+    return hasFlag('dist')
+}
+
+function useMin() {
+    return isDist() && hasFlag('min')
+}
+
+function hasFlag(flag) {
+    return window.location.search.indexOf(flag + '=true') !== 0
+}
+
 </script>
 <script src="//localhost:35729/livereload.js"></script>
 </body>

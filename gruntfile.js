@@ -86,7 +86,7 @@ module.exports = function(grunt) {
                     'jshint:grunt',
                 ]
             },
-            specs: {
+            test: {
                 options: {
                     livereload: true
                 },
@@ -96,7 +96,7 @@ module.exports = function(grunt) {
                 ],
                 tasks: [
                     'jshint:specs',
-                    'mocha:specs',
+                    'mocha:dev',
                 ]
             },
             src: {
@@ -106,7 +106,7 @@ module.exports = function(grunt) {
                 files: '<%= files.src %>',
                 tasks: [
                     'jshint:src',
-                    'mocha:specs',
+                    'mocha:dev',
                 ]
             },
         },
@@ -118,7 +118,7 @@ module.exports = function(grunt) {
         //----------------------------------
 
         connect: {
-            specs: {
+            test: {
                 options: {
                     hostname: 'localhost',
                     port: grunt.option('connectPort') || 9000,
@@ -137,14 +137,22 @@ module.exports = function(grunt) {
             options: {
                 // requirejs will call `mocha.run()`
                 run: false,
-                timeout: grunt.option('timeout') || 5000
+                timeout: grunt.option('timeout') || 5000,
+                reporter: 'Spec'
             },
-            specs: {
+            dev: {
                 options: {
                     urls: [
-                        'http://<%= connect.specs.options.hostname %>:<%= connect.specs.options.port %>/test'
-                    ],
-                    reporter: 'Spec'
+                        'http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/test'
+                    ]
+                }
+            },
+            dist: {
+                options: {
+                    urls: [
+                        'http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/test/?dist=true',
+                        'http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/test/?dist=true&min=true'
+                    ]
                 }
             }
         },
@@ -256,24 +264,17 @@ module.exports = function(grunt) {
     grunt.loadTasks('tasks')
 
     grunt.registerTask(
-        'test',
-        'Lints and runs all specs.',
+        'default',
+        'Build',
         [
             'jshint',
-            'connect:specs',
-            'mocha:specs',
-        ]
-    )
-
-    grunt.registerTask(
-        'default',
-        'Tests and builds.',
-        [
-            'test',
             'clean',
             'requirejs:dist',
             'bundle',
             'uglify:dist',
+            'connect:test',
+            'mocha:dev',
+            'mocha:dist'
         ]
     )
 
@@ -282,7 +283,7 @@ module.exports = function(grunt) {
         'Lints, starts connect and watches for changes.',
         [
             'jshint',
-            'connect:specs',
+            'connect:test',
             'watch',
         ]
     )

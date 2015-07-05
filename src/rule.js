@@ -1,8 +1,10 @@
 /*
  * Given a valid root element, describes how to transform the element's children
  */
-define(['underscore'], function (_) {
+define(function(require) {
     'use strict';
+
+    var _ = require('underscore')
 
     function validateChild(el) {
         return function(sel) {

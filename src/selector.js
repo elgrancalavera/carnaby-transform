@@ -1,9 +1,12 @@
 /*
  * Validate DOM elements against arbitrary `data-*` attributes.
  */
-define(['underscore', 'jquery'], function (_, $) {
+define(function(require) {
 
     'use strict';
+
+    var _ = require('underscore')
+    , $ = require('jquery')
 
     function selectorValue(value) {
         return _.isString(value) ? '="' + value + '"' : ''

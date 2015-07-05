@@ -1,7 +1,5 @@
 
 transform.VERSION = '<%= pkg.version %>'
-transform.selector = selector;
-transform.rule = rule;
 return transform;
 });
 /*
