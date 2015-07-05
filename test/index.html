@@ -60,7 +60,7 @@
 <script src="/bower_components/requirejs/require.js"></script>
 <script>
 require.config({
-    baseUrl: '/src',
+    baseUrl: '../src',
     paths: {
         underscore: '../bower_components/underscore/underscore',
         jquery: '../bower_components/jquery/dist/jquery',
@@ -75,9 +75,9 @@ require([
     function (chai) {
     mocha.setup('bdd')
     require([
-        'specs/selector',
-        'specs/rule',
-        'specs/transform',
+        '../test/specs/selector',
+        '../test/specs/rule',
+        '../test/specs/transform',
     ], function() {
         mocha.run()
     })

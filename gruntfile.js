@@ -14,7 +14,7 @@ module.exports = function(grunt) {
                 'grunt/**/*.js'
             ],
             specs: [
-                'src/specs/**/*.js'
+                'test/specs/**/*.js'
             ],
             specsrunner: [
                 'index.html'
@@ -59,7 +59,7 @@ module.exports = function(grunt) {
             },
             specs: {
                 options: {
-                    jshintrc: 'src/specs/.jshintrc'
+                    jshintrc: 'test/specs/.jshintrc'
                 },
                 files: {
                     src: '<%= files.specs %>'
@@ -144,7 +144,7 @@ module.exports = function(grunt) {
             specs: {
                 options: {
                     urls: [
-                        'http://<%= connect.specs.options.hostname %>:<%= connect.specs.options.port %>/'
+                        'http://<%= connect.specs.options.hostname %>:<%= connect.specs.options.port %>/test'
                     ],
                     reporter: 'Spec'
                 }
