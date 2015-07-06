@@ -1,58 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>carnaby-dom</title>
-    <link rel="stylesheet" type="text/css" href="/bower_components/mocha/mocha.css">
+  <title>carnaby-dom</title>
+  <link rel="stylesheet" type="text/css" href="/bower_components/mocha/mocha.css">
 </head>
 <body>
 <div id="mocha"></div>
 
 <div id="fixtures">
 
-    <div class="app" data-app="myapp">
-        <div class="controller" data-controller="my-controller"></div>
-        <div class="view invalid" data-view="my-view"></div>
-        <div class="component one" data-component="mycomponent">
-            <div class="controller" data-controller="mycontroller"></div>
+  <div class="app" data-app="myapp">
+    <div class="controller" data-controller="my-controller"></div>
+    <div class="view invalid" data-view="my-view"></div>
+    <div class="component one" data-component="mycomponent">
+      <div class="controller" data-controller="mycontroller"></div>
+      <div class="ignored-element">
+        <div class="view one" data-view="myviewone">
+          <div class="ignored-element">
             <div class="ignored-element">
-                <div class="view one" data-view="myviewone">
-                    <div class="ignored-element">
-                        <div class="ignored-element">
-                            <div class="view two" data-view="myviewtwo"></div>
-                        </div>
-                    </div>
-                </div>
+              <div class="view two" data-view="myviewtwo"></div>
             </div>
+          </div>
         </div>
-        <div class="component two" data-component="mycomponent">
-            <div class="controller" data-controller="mycontroller"></div>
-            <div class="view one" data-view="myviewone"></div>
-            <div class="view two" data-view="myviewtwo"></div>
-        </div>
-        <div class="component three" data-component="mycomponent">
-            <div class="controller" data-controller="mycontroller"></div>
-            <div class="controller" data-controller="mycontroller"></div>
-            <div class="view one" data-view="myviewone"></div>
-            <div class="view two" data-view="myviewtwo">
-                <div class="view one" data-view="myviewone"></div>
-                <div class="view two" data-view="myviewtwo">
-                    <div class="ignored-element"></div>
-                    <div class="view three" data-view="myviewthree">
-                        <div class="ignored-element"></div>
-                        <div class="ignored-element"></div>
-                    </div>
-                    <div class="view four" data-view="myviewfour"></div>
-                    <div class="view five" data-view="myviewfive"></div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+    <div class="component two" data-component="mycomponent">
+      <div class="controller" data-controller="mycontroller"></div>
+      <div class="view one" data-view="myviewone"></div>
+      <div class="view two" data-view="myviewtwo"></div>
+    </div>
+    <div class="component three" data-component="mycomponent">
+      <div class="controller" data-controller="mycontroller"></div>
+      <div class="controller" data-controller="mycontroller"></div>
+      <div class="view one" data-view="myviewone"></div>
+      <div class="view two" data-view="myviewtwo">
+        <div class="view one" data-view="myviewone"></div>
+        <div class="view two" data-view="myviewtwo">
+          <div class="ignored-element"></div>
+          <div class="view three" data-view="myviewthree">
+            <div class="ignored-element"></div>
+            <div class="ignored-element"></div>
+          </div>
+          <div class="view four" data-view="myviewfour"></div>
+          <div class="view five" data-view="myviewfive"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <div class="unknown">
-        <div class="unknown-child"></div>
-        <div class="unknown-child"></div>
-        <div class="unknown-child"></div>
-    </div>
+  <div class="unknown">
+    <div class="unknown-child"></div>
+    <div class="unknown-child"></div>
+    <div class="unknown-child"></div>
+  </div>
 
 </div>
 
@@ -61,48 +61,48 @@
 <script>
 
 require.config({
-    baseUrl: baseUrl(),
-    paths: {
-        underscore: '../bower_components/underscore/underscore',
-        jquery: '../bower_components/jquery/dist/jquery',
-        chai: '../bower_components/chai/chai',
-        transform: path()
-    }
+  baseUrl: baseUrl(),
+  paths: {
+    underscore: '../bower_components/underscore/underscore',
+    jquery: '../bower_components/jquery/dist/jquery',
+    chai: '../bower_components/chai/chai',
+    transform: path()
+  }
 })
 require([
-    'chai',
-    'jquery',
-    'underscore',
-    ],
-    function (chai) {
-    mocha.setup('bdd')
-    require([
-        '../test/specs/selector',
-        '../test/specs/rule',
-        '../test/specs/transform',
-    ], function() {
-        mocha.run()
-    })
+  'chai',
+  'jquery',
+  'underscore',
+  ],
+  function (chai) {
+  mocha.setup('bdd')
+  require([
+    '../test/specs/selector',
+    '../test/specs/rule',
+    '../test/specs/transform',
+  ], function() {
+    mocha.run()
+  })
 })
 
 function baseUrl() {
-    return isDist() ? '../dist' : '../src'
+  return isDist() ? '../dist' : '../src'
 }
 
 function path() {
-    return useMin() ? 'transform.min' : 'transform'
+  return useMin() ? 'transform.min' : 'transform'
 }
 
 function isDist() {
-    return hasFlag('dist')
+  return hasFlag('dist')
 }
 
 function useMin() {
-    return isDist() && hasFlag('min')
+  return isDist() && hasFlag('min')
 }
 
 function hasFlag(flag) {
-    return window.location.search.indexOf(flag + '=true') !== -1
+  return window.location.search.indexOf(flag + '=true') !== -1
 }
 
 </script>
