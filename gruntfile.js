@@ -109,11 +109,7 @@ module.exports = function(grunt) {
             jquery: 'empty:'
           },
           modules: [{
-            name: 'transform',
-            include: [
-              'selector',
-              'rule'
-            ]
+            name: 'transform'
           }]
         }
       }
