@@ -1,5 +1,5 @@
 /*
- * Given an array of `rule` functions, describes transforms a DOM tree into
+ * Given an array of `rule` functions, transforms a DOM tree into
  * a custom element tree.
  */
 define(function(require) {
@@ -8,11 +8,6 @@ define(function(require) {
 
     var _ = require('underscore')
     , $ = require('jquery')
-
-    transform.rule = require('rule')
-    transform.selector = require('selector')
-
-    return transform
 
     function transform(rules) {
 
@@ -40,6 +35,11 @@ define(function(require) {
             return nodeIterator(node(root, findRule(root)))
         }
     }
+
+    transform.rule = require('rule')
+    transform.selector = require('selector')
+
+    return transform
 
     function children(el) {
         return $(el).children()
