@@ -7,7 +7,6 @@ define(function(require) {
   'use strict';
 
   var _ = require('underscore')
-    , $ = require('jquery')
 
   function transform(rules) {
 
@@ -42,7 +41,7 @@ define(function(require) {
   return transform
 
   function children(el) {
-    return $(el).children()
+    return el.children
   }
 
   function ruleFinder(rules, el) {

@@ -1,6 +1,6 @@
 
 transform.VERSION = '<%= pkg.version %>'
-return transform;
+return transform
 });
 /*
                                                   /

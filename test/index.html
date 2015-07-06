@@ -64,14 +64,12 @@ require.config({
   baseUrl: baseUrl(),
   paths: {
     underscore: '../bower_components/underscore/underscore',
-    jquery: '../bower_components/jquery/dist/jquery',
     chai: '../bower_components/chai/chai',
     transform: path()
   }
 })
 require([
   'chai',
-  'jquery',
   'underscore',
   ],
   function (chai) {
