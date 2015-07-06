@@ -9,7 +9,7 @@ module.exports = function(grunt) {
         files: {
             grunt: [
                 'gruntfile.js',
-                'grunt/**/*.js'
+                'tasks/**/*.js'
             ],
             specs: [
                 'test/specs/**/*.js'

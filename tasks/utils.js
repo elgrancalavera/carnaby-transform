@@ -1,17 +1,16 @@
 'use strict';
 
-var amdclean = require('amdclean')
+var clean = require('amdclean').clean
 
 module.exports = function(grunt){
 
   grunt.registerTask('bundle', function() {
-    grunt.file.write(
-        this.options().dest
-      , amdclean.clean({
-          filePath: this.options().src
-        , wrap: umdReturnExports(this.options().wrapper)
-        })
-      )
+    var options = this.options()
+      , src = options.src
+      , dest = options.dest
+      , wrapper = umdReturnExports(options.wrapper)
+
+    grunt.file.write(dest, clean({ filePath: src, wrap: wrapper }))
   })
 
   // https://github.com/umdjs/umd/blob/master/returnExports.js
