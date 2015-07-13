@@ -22,7 +22,6 @@
   ],
   "devDependencies": {
     "chai": "~1.10.0",
-    "mocha": "~2.0.1",
     "requirejs": "~2.1.15"
   },
   "dependencies": {
