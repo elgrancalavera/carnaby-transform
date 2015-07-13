@@ -21,7 +21,7 @@ define(function (require) {
 
     describe('roots:', function() {
       it('Should reject invalid roots.', function() {
-        expect(f.appTransform(f.unknown)).not.to.be.ok()
+        expect(f.appTransform(f.unknown)).not.to.be.ok
       })
       it('Should accept valid roots.', function() {
         var tree = f.appTransform(f.singleApp)
@@ -51,11 +51,11 @@ define(function (require) {
         var root = f.appTransform(f.singleApp)
 
         var componentOne = findChild(root, _.partial(byClassName, 'component one'))
-        expect(componentOne).to.be.ok()
+        expect(componentOne).to.be.ok
         expect(componentOne.children.length).to.equal(2)
 
         var viewOne = findChild(componentOne, _.partial(byClassName, 'view one'))
-        expect(viewOne).to.be.ok()
+        expect(viewOne).to.be.ok
         expect(viewOne.children.length).to.equal(1)
       })
     })

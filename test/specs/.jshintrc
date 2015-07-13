@@ -14,6 +14,7 @@
   "browser": true,
   "devel": true,
   "laxcomma": true,
+  "expr": true,
   "globals": {
     "define": false,
     "require": false,
