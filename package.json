@@ -29,7 +29,8 @@
     "matchdep": "~0.3.0",
     "mocha": "^2.2.5",
     "requirejs": "^2.1.19",
-    "semver": "~4.1.0"
+    "semver": "~4.1.0",
+    "underscore": "^1.7.0"
   },
   "dependencies": {
     "underscore": "~1.7.0"
