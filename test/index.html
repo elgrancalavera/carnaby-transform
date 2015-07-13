@@ -68,19 +68,17 @@ require.config({
     transform: path()
   }
 })
+
 require([
-  'chai',
-  'underscore',
-  ],
-  function (chai) {
+  'chai'
+, 'underscore'
+], function () {
   mocha.setup('bdd')
   require([
-    '../test/specs/selector',
-    '../test/specs/rule',
-    '../test/specs/transform',
-  ], function() {
-    mocha.run()
-  })
+    '../test/specs/selector'
+  , '../test/specs/rule'
+  , '../test/specs/transform'
+  ], mocha.run)
 })
 
 function baseUrl() {
